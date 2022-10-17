@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router(); 
+const router = express.Router();// router 
 
 let movies= ['Rang de basanti', 'The shining', 'Lord of the rings', 'Batman begins']
 
