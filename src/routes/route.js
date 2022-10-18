@@ -33,10 +33,10 @@ let films=[ {
     'id': 2,
     'name': 'Incendies'
    }, {
-    'id': 3,
+    'id': 7,
     'name': 'Rang de Basanti'
    }, {
-    'id': 4,
+    'id': 9,
     'name': 'Finding Nem'
    }]
    
@@ -47,14 +47,18 @@ router.get('/films',(req,res)=>{
 })
 
 
-router.get('/films/:filmid',(req,res)=>{
-    let filmid = req.params.filmid
-    if (filmid>films.length){
-        res.send('Please use a valid index')
+//Write api GET /films/:filmId where filmId is the value received in request path params. Use this value to return a movie object with this id. In case there is no such movie present in the array, return a suitable message in the response body. Example for a request GET /films/3 should return the movie object 
+
+router.get('/films/:filmId',(req,res)=>{
+
+    let filmId = req.params.filmId
+    let film = films.find(film => film.id == filmId)
+    if(film){
+        res.send(film)
     }
     else{
-        res.send(films[filmid-1])
+        res.send('No such movie found in our database')
     }
 })
-   
+
 module.exports = router;
