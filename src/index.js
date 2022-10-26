@@ -1,22 +1,22 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const route = require('./routes/route.js');
-const { default: mongoose } = require('mongoose');
 const app = express();
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
-mongoose.connect("mongodb+srv://functionup-cohort:G0Loxqc9wFEGyEeJ@cluster0.rzotr.mongodb.net/Pritesh8769811-DB?retryWrites=true&w=majority", {
-    useNewUrlParser: true
-})
-.then( () => console.log("MongoDb is connected"))
-.catch ( err => console.log(err) )
-
-app.use('/', route);
+const config = require('config');
+const bookRoute = require("./routes/bookRoute");
+const mongoose = require("mongoose");
 
 
-app.listen(process.env.PORT || 3000, function () {
-    console.log('Express app running on port ' + (process.env.PORT || 3000))
+mongoose.connect(config.get('db'), {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(() => {
+    console.log('Connected to MongoDB');
+}).catch(err => {
+    console.log('Error connecting to MongoDB', err);
+});
+
+app.use(express.json());
+app.use(bookRoute);  
+
+app.listen(3000, () => {
+console.log('Server is running on port 3000');
 });
