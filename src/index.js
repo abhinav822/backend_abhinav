@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const route = require('./routes/route.js');
 const { default: mongoose } = require('mongoose');
 const app = express();
+app.use(loggingMiddleware);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,9 +22,22 @@ app.use (
   }
   );
 
+  
+  function loggingMiddleware(req, res, next) {
+    console.log(`${new Date().toISOString()}: ${req.originalUrl} : ${req.ip}`)  // $ is used to access the variable inside the string 
+    next()
+  }
+
+
+
 app.use('/', route);
 
 
 app.listen(process.env.PORT || 3000, function () {
     console.log('Express app running on port ' + (process.env.PORT || 3000))
 });
+
+
+// get current date and time in js we can use moment.js library or without using any library we can get current date and time in js using Date() object like below
+
+// const today = new Date();
