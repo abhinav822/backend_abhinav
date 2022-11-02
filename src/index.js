@@ -2,11 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const route = require('./routes/route.js');
 const { default: mongoose } = require('mongoose');
+//require moment
+const moment = require('moment');
 const app = express();
-app.use(loggingMiddleware);
 
+app.use(loggingMiddleware);
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 
 mongoose.connect("mongodb+srv://functionup-cohort:G0Loxqc9wFEGyEeJ@cluster0.rzotr.mongodb.net/Pritesh8769811-DB?retryWrites=true&w=majority", {
@@ -23,12 +24,13 @@ app.use (
   );
 
   
-  function loggingMiddleware(req, res, next) {
-    console.log(`${new Date().toISOString()}: ${req.originalUrl} : ${req.ip}`)  // $ is used to access the variable inside the string 
-    next()
-  }
+  // function loggingMiddleware(req, res, next) {
+  //   console.log(`${new Date().toISOString()}: ${req.originalUrl} : ${req.ip}`)  // $ is used to access the variable inside the string 
+  //   next()
+  // }
 
-
+function loggingMiddleware(req, res, next) {
+  console.log(`${moment().format('DD-MM-YYYY, h:mm:ss a')}: ${req.originalUrl} : ${req.ip}`)}  // $ is used to access the variable inside the string like ${req.ip}  
 
 app.use('/', route);
 
