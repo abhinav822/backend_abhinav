@@ -24,12 +24,9 @@ const loginUser = async function (req, res) {
 
   let token = jwt.sign(
     {
-      userId: user._id.toString(),  
-      // batch: "lithium",
-      // organisation: "FunctionUp",
-      // month: "August",     
+      userId: user._id.toString(),      
     },
-    "functionup-plutonium-very-very-secret-key" // This is the secret key
+    "functionup-lithium-very-very-secret-key" // This is the secret key
   );
   res.setHeader("x-auth-token", token);
   res.send({ status: true, token });
@@ -44,7 +41,7 @@ const getUserData = async function (req, res) {
   let token = req.headers["x-auth-token"]; 
   // console.log(token);  
 
-  let decodedToken = jwt.verify(token, "functionup-plutonium-very-very-secret-key");
+  let decodedToken = jwt.verify(token, "functionup-lithium-very-very-secret-key");
   if (!decodedToken)
    return res.send({ status: false, msg: "token is invalid" });
   console.log(decodedToken); 

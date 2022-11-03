@@ -7,7 +7,7 @@ const mid1 = function (req, res, next) {
    if (!token) {
       return res.send({ status: false, msg: "token must be present" });
    }
-   let decodedToken = jwt.verify(token, "functionup-plutonium-very-very-secret-key");
+   let decodedToken = jwt.verify(token, "functionup-lithium-very-very-secret-key");
    if (decodedToken) {
       next();
    } else {
