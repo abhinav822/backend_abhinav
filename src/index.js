@@ -3,8 +3,10 @@ const route = require('./routes/route')
 const mongoose = require('mongoose')
 
 const app = express();
+const multer = require('multer');
 
 app.use(express.json())
+app.use(multer().any())
 
 mongoose.connect("mongodb+srv://chanda:QYho3EZNKLny4znA@cluster0.gkrjc46.mongodb.net/group24Database",{useNewUrlParser:true})
 
@@ -13,9 +15,7 @@ mongoose.connect("mongodb+srv://chanda:QYho3EZNKLny4znA@cluster0.gkrjc46.mongodb
 
 app.use('/',route)
 
-app.use((req,res)=>{
-    res.status(404).send({status:false,msg:"request not found"})
-})
+
 
 app.listen(process.env.PORT || 3000,function(){
     console.log('express app running on port '+ (process.env.PORT || 3000))

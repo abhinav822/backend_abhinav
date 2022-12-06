@@ -1,5 +1,5 @@
 const mongoose =require( 'mongoose')
-const ObjectId = mongoose.Schema.Types.ObjectId
+const ObjectId = mongoose.Schema.Types.ObjectId  // this line means that the ObjectId is the ObjectId of the book which is being reviewed
 
 const reviewSchema = new mongoose.Schema(
     {

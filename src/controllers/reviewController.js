@@ -22,7 +22,7 @@ const createReview = async function (req, res) {
         if (!valid.isValidRequestBody(data)) {
             return res.status(400).send({ status: false, msg: "please provide some data to create review" })
         }
-        Obj.bookId = bookId
+        Obj.bookId = bookId  // obj.bookId = bookId this line means that the bookId is the bookId of the book which is being reviewed
 
 
         if (reviewedBy) {
@@ -61,7 +61,7 @@ const createReview = async function (req, res) {
         Obj.review = review
 
         if (isDeleted == true) {
-            return res.status(400).send({ status: false, msg: "you are deleting your data on the time of creation" })
+            return res.status(400).send({ status: false, msg: "Already deleted" })
         }
         Obj.isDeleted = isDeleted
         const reviewCreate = await reviewModel.create(Obj)
@@ -163,7 +163,7 @@ const deleteReview = async function (req, res) {
         if (!valid.isValidObjectId(bookId))
             return res.status(400).send({ status: false, message: "Please enter valid bookId...!" })
 
-        const bookExist = await bookModel.findOne({ _id: bookId, isDeleted: false }).select({ deletedAt: 0 })
+        const bookExist = await bookModel.findOne({ _id: bookId, isDeleted: false }).select({ deletedAt: 0 })  // de
 
         if (!bookExist)
             return res.status(404).send({ status: false, message: "No such book found...!" });
@@ -175,7 +175,7 @@ const deleteReview = async function (req, res) {
             return res.status(400).send({ status: false, message: "enter valid reviewId...!" })
 
 
-        const reviewExist = await reviewModel.findOne({ _id: reviewId, bookId: bookId })
+        const reviewExist = await reviewModel.findOne({ _id: reviewId, bookId: bookId })  // this line means that reviewId should be present in the bookId
 
         if (!reviewExist) return res.status(404).send({ status: false, message: "review not found...!" })
 
@@ -188,7 +188,7 @@ const deleteReview = async function (req, res) {
 
 
             await reviewModel.findOneAndUpdate(
-                { _id: reviewId, bookId: bookId, isDeleted: false },
+                { _id: reviewId, bookId: bookId, isDeleted: false },  // 
                 { $set: { isDeleted: true } },
                 { new: true }
             );

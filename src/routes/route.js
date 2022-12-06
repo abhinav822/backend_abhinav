@@ -5,7 +5,9 @@ const userController = require("../controllers/userController")
 const bookController = require("../controllers/bookController")
 const reviewController = require('../controllers/reviewController')
 const { authentication, authorization } = require('../middleware/auth')
+const aws = require('../aws/awsConfig')
 
+router.post('/write-file', aws.awsrequest)
 
 router.post("/register",userController.userCreation)
 
@@ -27,7 +29,9 @@ router.put("/books/:bookId/review/:reviewId", reviewController.updateReview)
 
 router.delete("/books/:bookId/review/:reviewId", reviewController.deleteReview)
 
-    
+router.all("/*", async function (req, res) {
+    return res.status(404).send({ status: false, message: "Page Not Found" });
+  });
 
 
 module.exports = router

@@ -2,7 +2,13 @@ const mongoose = require('mongoose')
 const ObjectId = mongoose.Schema.Types.ObjectId
 
 
-const bookSchema = new mongoose.Schema({
+const bookSchema = new mongoose.Schema({  // new is a keyword to create a new object of the class mongoose.Schema
+    bookcover: {
+        type: String,
+        require: true,
+        unique: true,
+        trim: true
+    },
 
     title: {
         type: String,
@@ -55,4 +61,4 @@ const bookSchema = new mongoose.Schema({
         format:"YYYY-MM-DD"
     }
 },{timestamps: true})
-module.exports= mongoose.model('Book',bookSchema)
+module.exports= mongoose.model('Book',bookSchema) //
