@@ -55,3 +55,8 @@ exports.awsrequest = async (req, res) => {
     
 }
 
+
+// to undo last commit use this command in git bash  git reset --soft HEAD~1 // head is the last commit and ~1 means one commit before head
+
+// another way to undo last commit is to use git revert HEAD 
+
